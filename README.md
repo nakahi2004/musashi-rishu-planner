@@ -1,5 +1,7 @@
 # 武蔵履修プランナー
 
+[![Download](https://img.shields.io/badge/ダウンロード-v1.0.0-6c63ff?style=for-the-badge)](https://github.com/nakahi2004/musashi-rishu-planner/releases/latest)
+
 武蔵大生向け"非公式"な履修登録サポートツール。履修可能な授業を一覧で表示、授業ごとに3Sで確認して優先度(A〜D)と曜日・時間を入力すると、週間カレンダーで授業の被りを確認できます。
 
 
@@ -66,7 +68,7 @@ musashi-rishu-planner/
 
 ## 個人情報の取り扱いについて
 
-成績PDFは、履修済みの授業を見分けるため、単位の取得状況を視覚化するために利用します。ご自身のGoogleサービス(Google Drive・Google Colab)上でのみ処理を行い、出力される「merge_courses.csv」には、成績などを除いた必要最低限の情報だけが記載されます。また、Webアプリ自体はローカル環境で実行され、情報はブラウザ内にのみ保存されます(localStorage機能を利用)。ご使用に関して、いかなるデータも制作者に送られることはありません。
+成績PDFは、履修済みの授業を見分けるため、単位の取得状況を視覚化するために利用します。ご自身のGoogleサービス(Google Drive・Google Colab)上でのみ処理を行い、出力される「merge_courses.csv」には、成績などを除いた必要最低限の情報だけが記載されます。また、Webアプリ自体はローカル環境で実行され、情報はブラウザ内にのみ保存されます(localStorage機能を利用)。ご利用に関して、いかなるデータも制作者に送られることはありません。
 
 ---
 
