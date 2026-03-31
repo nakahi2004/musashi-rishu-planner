@@ -33,7 +33,7 @@
 
 | ファイル | 入手先 |
 |---|---|
-| 履修要項PDF（ご自身が所属する学科名のものを選択） | ダウンロードしたフォルダ内に一緒に入ってます(別途用意不要) |
+| 履修要項PDF（ご自身が所属する学科名のものを選択） | ダウンロードしたフォルダ内の `Gakka/` フォルダに入ってます（別途用意不要） |
 | 成績PDF | [3S](https://3s.musashi.ac.jp/) → 成績タブ → 成績照会 → 右上「PDF」 |
 
 > 成績PDFの取り扱いについて、不安を感じると思います。下部の「個人情報の取り扱いについて」をご確認ください。
@@ -60,8 +60,9 @@
 musashi-rishu-planner/
 ├── rishu_planner.html        # メインアプリ（CSVを読み込んで使用）
 ├── generate_csv.ipynb        # CSVを生成するGoogle Colabノートブック
-├── 履修要項_[学科].pdf　*n # generate_csv.ipynbで利用
-└── demo.csv # デモ用のCSVファイル。
+├── demo.csv                  # デモ用のCSVファイル
+└── Gakka/                    # 学科別 履修要項PDF（generate_csv.ipynbで利用）
+    └── mediashakai_gakka.pdf
 ```
 
 ---
