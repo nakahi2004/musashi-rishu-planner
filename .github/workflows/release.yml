@@ -1,0 +1,30 @@
+name: Release ZIP
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create ZIP
+        run: |
+          mkdir -p musashi-rishu-planner/Gakka
+          cp rishu_planner.html musashi-rishu-planner/
+          cp generate_csv.ipynb musashi-rishu-planner/
+          cp demo.csv           musashi-rishu-planner/
+          cp Gakka/*.pdf        musashi-rishu-planner/Gakka/
+          zip -r musashi-rishu-planner.zip musashi-rishu-planner/
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: musashi-rishu-planner.zip
