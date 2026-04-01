@@ -4,9 +4,9 @@
 
 武蔵大生向け"非公式"な履修登録サポートツール。履修可能な授業を一覧で表示、授業ごとに3Sで確認して優先度(A〜D)と曜日・時間を入力すると、週間カレンダーで授業の被りを確認できます。
 
-![](a01.jpg)
-![](a02.jpg)
-![](a03.jpg)
+![](images/a01.jpg)
+![](images/a02.jpg)
+![](images/a03.jpg)
 
 ---
 
@@ -42,11 +42,11 @@
 > 成績PDFの取り扱いについて、不安を感じると思います。下部の「個人情報の取り扱いについて」をご確認ください。
 
 1. [generate_csv.ipynb](./generate_csv.ipynb) をGoogle Driveに保存し、右クリック。「アプリで開く」から「Google Colaboratoryで開く」を選択し、Google Colabに遷移。
-![](b01.jpg)
-![](b02.jpg)
+![](images/b01.jpg)
+![](images/b02.jpg)
 2. **ステップ1〜4** を順番に実行
-![](b03.jpg)
-![](b04.jpg)
+![](images/b03.jpg)
+![](images/b04.jpg)
 3. `merged_courses.csv` がダウンロードされる
 
 > **成績PDFをアップロードしたくない場合（新1年生など）**
