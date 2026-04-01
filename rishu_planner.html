@@ -423,7 +423,7 @@ body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--
         <div class="prio-desc-item"><span class="prio-badge prio-A">A</span>絶対受けたい</div>
         <div class="prio-desc-item"><span class="prio-badge prio-B">B</span>受けたい</div>
         <div class="prio-desc-item"><span class="prio-badge prio-C">C</span>選択肢には入れとく</div>
-        <div class="prio-desc-item"><span class="prio-badge prio-D">D</span>絶対受けたくない</div>
+        <div class="prio-desc-item"><span class="prio-badge prio-D">D</span>受けない/受けたくない</div>
       </div>
     </div>
     <div class="modal-field">
@@ -1383,7 +1383,7 @@ function renderCalendar() {
     h += '<button class="cal-filter-btn' + sc + '" onclick="setCalSemFilter(\'' + sv + '\')">' + sl + '</button>';
   }
   h += '</div>';
-  var prioLabels = { A:'\u7d76\u5bfe\u53d7\u3051\u305f\u3044', B:'\u53d7\u3051\u305f\u3044', C:'\u9078\u629e\u80a2\u306b\u306f\u5165\u308c\u3068\u304f', D:'\u7d76\u5bfe\u53d7\u3051\u305f\u304f\u306a\u3044' };
+  var prioLabels = { A:'\u7d76\u5bfe\u53d7\u3051\u305f\u3044', B:'\u53d7\u3051\u305f\u3044', C:'\u9078\u629e\u80a2\u306b\u306f\u5165\u308c\u3068\u304f', D:'\u53d7\u3051\u306a\u3044/\u53d7\u3051\u305f\u304f\u306a\u3044' };
   h += '<div class="cal-prio-filter">';
   ['A','B','C','D'].forEach(function(p) {
     var chk = calPrioFilter[p] ? ' checked' : '';
@@ -1429,7 +1429,7 @@ function renderCalendar() {
     ['var(--prio-a)','A \u7d76\u5bfe\u53d7\u3051\u305f\u3044'],
     ['var(--prio-b)','B \u53d7\u3051\u305f\u3044'],
     ['var(--prio-c)','C \u9078\u629e\u80a2\u306b\u306f\u5165\u308c\u3068\u304f'],
-    ['var(--prio-d)','D \u7d76\u5bfe\u53d7\u3051\u305f\u304f\u306a\u3044'],
+    ['var(--prio-d)','D \u53d7\u3051\u306a\u3044/\u53d7\u3051\u305f\u304f\u306a\u3044'],
     ['repeating-linear-gradient(135deg,var(--surface),var(--surface) 5px,var(--surface2) 5px,var(--surface2) 10px)','\u4e0d\u53ef']
   ];
   h += '<div class="cal-legend">';
