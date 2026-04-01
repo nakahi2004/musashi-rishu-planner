@@ -4,3 +4,4 @@
 !demo.csv
 *.pdf
 !Gakka/*.pdf
+!Gakka/*.csv
