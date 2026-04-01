@@ -20,8 +20,7 @@ jobs:
           mkdir -p musashi-rishu-planner/Gakka
           cp rishu_planner.html musashi-rishu-planner/
           cp generate_csv.ipynb musashi-rishu-planner/
-          cp demo.csv           musashi-rishu-planner/
-          cp Gakka/*.pdf        musashi-rishu-planner/Gakka/
+          cp Gakka/*.csv        musashi-rishu-planner/Gakka/
           zip -r musashi-rishu-planner.zip musashi-rishu-planner/
 
       - name: Upload to Release
