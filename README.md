@@ -1,6 +1,6 @@
 # 武蔵履修プランナー
 
-[![Download](https://img.shields.io/badge/ダウンロード-v0.1.1_beta-6c63ff?style=for-the-badge)](https://github.com/nakahi2004/musashi-rishu-planner/releases/latest)
+[![Download](https://img.shields.io/badge/ダウンロード-v0.2.0_beta-6c63ff?style=for-the-badge)](https://github.com/nakahi2004/musashi-rishu-planner/releases/latest)
 
 武蔵大生向け"非公式"の履修登録サポートツールです。履修可能な授業を一覧で表示。シラバスを確認して優先度(A〜D)や曜日・時間を入力することで、受けたい授業を週間カレンダー形式で可視化することができます。
 
