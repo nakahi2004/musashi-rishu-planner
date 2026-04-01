@@ -96,3 +96,7 @@ musashi-rishu-planner/
 ---
 
 ## その他
+
+連絡先:
+`51_coal.mime@icloud.com`
+iCloudのランダム生成メアドです。返信は別メアドから差し上げます。もし何かあれば、ご連絡お願いします。
