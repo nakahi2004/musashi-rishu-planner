@@ -872,11 +872,11 @@ function loadText(text, filename) {
   var errEl = document.getElementById('load-error');
   errEl.style.display = 'none';
   try {
-    // ##CREDITS## セパレータで分割
-    var sep = '\n##CREDITS##\n';
-    var sepIdx = text.indexOf(sep);
+    // ##CREDITS## セパレータで分割（\r\n / \n 両対応）
+    var sepIdx = text.search(/\r?\n##CREDITS##/);
     var courseText = sepIdx >= 0 ? text.slice(0, sepIdx) : text;
-    var creditsText = sepIdx >= 0 ? text.slice(sepIdx + sep.length) : '';
+    var creditsStart = sepIdx >= 0 ? text.indexOf('\n', sepIdx) + 1 : -1;
+    var creditsText  = creditsStart > 0 ? text.slice(creditsStart) : '';
     DATA = parseCSV(courseText);
     CREDITS = creditsText ? parseCreditsSection(creditsText) : null;
     creditsCollapsed = {};
