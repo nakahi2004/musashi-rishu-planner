@@ -143,6 +143,9 @@ body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--
 .prio-btn.sel-C { background:var(--prio-c); border-color:var(--prio-c); color:#fff; }
 .prio-btn.sel-D { background:var(--prio-d); border-color:var(--prio-d); color:#fff; }
 .prio-btn.sel-none { border-color:var(--border2); color:var(--text3); }
+.comp-btn { width:100%; padding:7px 14px; border:1px solid var(--border); background:none; color:var(--text3); border-radius:6px; cursor:pointer; font-size:12px; font-family:inherit; transition:all .12s; text-align:left; }
+.comp-btn:hover { border-color:var(--tag-done-t); color:var(--tag-done-t); }
+.comp-btn.active { background:var(--tag-done); border-color:var(--tag-done-t); color:var(--tag-done-t); font-weight:500; }
 .prio-desc { display:flex; flex-direction:column; gap:3px; margin-top:8px; }
 .prio-desc-item { display:flex; align-items:center; gap:7px; font-size:11px; color:var(--text2); }
 .prio-desc-item .prio-badge { flex-shrink:0; }
@@ -417,6 +420,10 @@ body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--
       <p id="modal-notes"></p>
     </div>
     <div class="modal-field">
+      <label>履修済み</label>
+      <button class="comp-btn" id="modal-comp-btn" onclick="toggleComp()"></button>
+    </div>
+    <div class="modal-field">
       <label>優先度</label>
       <div class="prio-btns" id="modal-prio-btns"></div>
       <div class="prio-desc">
@@ -586,6 +593,41 @@ function renderCredits() {
   lp.innerHTML = h;
 }
 function getAnnot(key) { return ANNOT[key] || {}; }
+function isComp(name) { return !!getAnnot(name).comp; }
+function importCompFromCSV(data) {
+  var changed = false;
+  for (var h1 in data) {
+    for (var h2 in data[h1]) {
+      for (var h3 in data[h1][h2]) {
+        var list = data[h1][h2][h3];
+        for (var i = 0; i < list.length; i++) {
+          var c = list[i];
+          if (c.comp === 'True' && getAnnot(c.name).comp === undefined) {
+            if (!ANNOT[c.name]) ANNOT[c.name] = {};
+            ANNOT[c.name].comp = true;
+            changed = true;
+          }
+        }
+      }
+    }
+  }
+  if (changed) saveAnnot();
+}
+function renderCompBtn() {
+  var btn = document.getElementById('modal-comp-btn');
+  if (!btn) return;
+  var active = isComp(currentModalKey);
+  btn.textContent = active ? '✓ 履修済み（クリックで解除）' : '履修済みにする';
+  btn.classList.toggle('active', active);
+}
+function toggleComp() {
+  if (!currentModalKey) return;
+  if (!ANNOT[currentModalKey]) ANNOT[currentModalKey] = {};
+  ANNOT[currentModalKey].comp = !ANNOT[currentModalKey].comp;
+  saveAnnot();
+  renderCompBtn();
+  if (viewMode === 'calendar') { renderCalendar(); } else { renderList(); }
+}
 function setPrio(prio) {
   var val = prio === 'none' ? '' : prio;
   if (!ANNOT[currentModalKey]) ANNOT[currentModalKey] = {};
@@ -878,6 +920,7 @@ function loadText(text, filename) {
     var creditsStart = sepIdx >= 0 ? text.indexOf('\n', sepIdx) + 1 : -1;
     var creditsText  = creditsStart > 0 ? text.slice(creditsStart) : '';
     DATA = parseCSV(courseText);
+    importCompFromCSV(DATA);
     CREDITS = creditsText ? parseCreditsSection(creditsText) : null;
     creditsCollapsed = {};
     var fn = filename ? filename.replace(/\.csv$/i, '') : 'CSV';
@@ -1047,7 +1090,7 @@ function filterCourses(courses) {
   var res = [];
   for (var i = 0; i < courses.length; i++) {
     var c = courses[i];
-    if (hideDone && c.comp === 'True') { continue; }
+    if (hideDone && isComp(c.name)) { continue; }
     if (q && c.name.toLowerCase().indexOf(q) < 0 && c.id.toLowerCase().indexOf(q) < 0) { continue; }
     res.push(c);
   }
@@ -1138,14 +1181,14 @@ function renderList() {
       var c = filtered[i];
       var annot = getAnnot(c.name);
       var prio = annot.prio || '';
-      var cardCls = c.comp === 'True' ? ' card-done' : (c.danger === 'True' ? ' card-warn' : '');
+      var cardCls = isComp(c.name) ? ' card-done' : (c.danger === 'True' ? ' card-warn' : '');
       html += '<div class="course-card' + cardCls + '" onclick="openModal(\'' + ej(c.id) + '\',\'' + ej(c.name) + '\')">';
       html += '<div class="card-main">';
       html += '<div class="card-name">' + hlText(c.name, query) + '</div>';
       html += '<div class="card-meta">' + formTag(c.form) + reqTag(c.req);
       html += '<span class="grade-tag">' + eh(c.grade) + '年</span>';
       html += '<span class="units-tag">' + eh(c.units) + '単位</span>';
-      if (c.comp === 'True')   { html += '<span class="tag tag-done">&#10003; 履修済み</span>'; }
+      if (isComp(c.name))      { html += '<span class="tag tag-done">&#10003; 履修済み</span>'; }
       if (c.danger === 'True') { html += '<span class="tag tag-warn">&#9888; 要注意</span>'; }
       html += '</div></div>';
       html += '<div class="card-right">';
@@ -1235,7 +1278,7 @@ function openModal(id, name) {
     + '<span class="pill">' + eh(c.grade) + '年次</span>'
     + '<span class="pill">' + eh(c.form) + '</span>'
     + (c.req ? '<span class="pill">' + eh(c.req) + '</span>' : '')
-    + (c.comp === 'True'   ? '<span class="pill pill-done">&#10003; 履修済み</span>' : '')
+    + (isComp(c.name)      ? '<span class="pill pill-done">&#10003; 履修済み</span>' : '')
     + (c.danger === 'True' ? '<span class="pill pill-warn">&#9888; 要注意</span>'    : '');
   document.getElementById('modal-pills').innerHTML = pills;
   var segs = [found.h1, found.h2, found.h3];
@@ -1250,6 +1293,7 @@ function openModal(id, name) {
   if (c.notes) { nw.style.display = ''; document.getElementById('modal-notes').textContent = c.notes; }
   else { nw.style.display = 'none'; }
   var annot = getAnnot(c.name);
+  renderCompBtn();
   renderPrioBtns(annot.prio || '');
   document.getElementById('modal-memo').value = annot.memo || '';
   renderSemesterBtns(annot.semester || '');
@@ -1339,7 +1383,7 @@ function getCalendarMap() {
         var list = DATA[h1][h2][h3];
         for (var i = 0; i < list.length; i++) {
           var c = list[i];
-          if (c.comp === 'True' || c.danger === 'True') continue;
+          if (isComp(c.name) || c.danger === 'True') continue;
           var annot = getAnnot(c.name);
           var prio = annot.prio || '';
           if (prio && !calPrioFilter[prio]) continue;
