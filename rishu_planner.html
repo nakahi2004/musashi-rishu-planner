@@ -298,7 +298,7 @@ body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--
   <div class="load-cards">
     <div class="load-card">
       <div class="load-card-title"><span class="load-card-icon">&#128196;</span>CSVファイルを選択</div>
-      <div class="load-card-sub">ColabでダウンロードしたCSVを直接開きます</div>
+      <div class="load-card-sub">一緒にダウンロードされたGakkaフォルダ内の「[学科名ローマ字]_gakka.csv」、もしくはGoogle Colabで作成した「merged_courses.csv」を読み込んでください。</div>
       <div class="upload-zone" id="upload-zone"
         ondragover="onDragOver(event)"
         ondragleave="onDragLeave(event)"
@@ -308,15 +308,8 @@ body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--
         クリックまたはドラッグ＆ドロップ
       </div>
     </div>
-    <div class="load-card">
-      <div class="load-card-title"><span class="load-card-icon">&#128203;</span>内容を貼り付け</div>
-      <div class="load-card-sub">CSVをテキストエディタで開き、全選択→コピーして貼り付けてください</div>
-      <textarea id="csv-text" placeholder="ここをクリックして Cmd+V で貼り付け"></textarea>
-      <button class="load-btn" onclick="doLoadPaste()">読み込む</button>
-    </div>
     <div class="load-error" id="load-error"></div>
   </div>
-  <div class="load-hint">カラム: <code>科目名</code> <code>大分類</code> <code>中分類</code> <code>小分類</code> <code>ナンバリング</code> など</div>
 </div>
 
 <div class="app" id="app">
