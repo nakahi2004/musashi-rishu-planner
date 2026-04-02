@@ -290,7 +290,7 @@ body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--
 <body>
 
 <div class="load-screen" id="load-screen">
-  <h1>武蔵履修プランナー <span>β v0.2.2</span></h1>
+  <h1>武蔵履修プランナー <span>β v0.2.3</span></h1>
   <div class="resume-banner" id="resume-banner" style="display:none">
     <div class="resume-banner-info">前回読み込んだ <strong id="resume-filename">CSV</strong> があります</div>
     <button class="resume-btn" onclick="resumeFromStorage()">&#9654; 前回のデータを使用</button>
@@ -314,7 +314,7 @@ body { font-family:"Noto Sans JP",sans-serif; background:var(--bg); color:var(--
 
 <div class="app" id="app">
   <div class="topbar">
-    <h1>武蔵履修プランナー <span>β v0.2.2</span></h1>
+    <h1>武蔵履修プランナー <span>β v0.2.3</span></h1>
     <div class="view-tabs">
       <button class="view-tab active" id="tab-list"     onclick="switchView('list')">リスト</button>
       <button class="view-tab"        id="tab-calendar" onclick="switchView('calendar')">カレンダー</button>
@@ -673,7 +673,7 @@ function renderDayBtns() {
 }
 function renderPeriodBtns() {
   var html = '';
-  for (var i = 1; i <= 5; i++) {
+  for (var i = 1; i <= 6; i++) {
     var p = String(i);
     html += '<button class="toggle-btn' + (p === pendingPeriod ? ' sel' : '') + '" onclick="selectPeriod(\'' + p + '\')">' + p + '限</button>';
   }
@@ -1364,7 +1364,7 @@ function toggleCalPrio(p) {
 function getCalendarMap() {
   var map = {};
   var days    = ['\u6708','\u706b','\u6c34','\u6728','\u91d1'];
-  var periods = ['1','2','3','4','5'];
+  var periods = ['1','2','3','4','5','6'];
   for (var di = 0; di < days.length; di++) {
     for (var pi = 0; pi < periods.length; pi++) {
       map[days[di] + '_' + periods[pi]] = [];
@@ -1407,7 +1407,7 @@ function renderCalendar() {
   var lp = document.getElementById('list-panel');
   var map = getCalendarMap();
   var days    = ['\u6708','\u706b','\u6c34','\u6728','\u91d1'];
-  var periods = ['1','2','3','4','5'];
+  var periods = ['1','2','3','4','5','6'];
   var sems    = [['\u6625', '\u6625\u5b66\u671f'], ['\u79cb', '\u79cb\u5b66\u671f']];
 
   var h = '<div class="cal-wrap">';
@@ -1447,7 +1447,7 @@ function renderCalendar() {
       var cellCls = 'cal-cell' + (isBusy ? ' busy' : '');
       h += '<div class="' + cellCls + '" data-key="' + key + '" onclick="onCalCellClick(event,this)">';
       if (!isBusy) {
-        if (entries.length > 1) {
+        if (entries.length > 1 && periods[pi] !== '6') {
           h += '<span class="cal-conflict-badge">!' + entries.length + '\u88ab\u308a</span>';
         }
         for (var ei = 0; ei < entries.length; ei++) {
