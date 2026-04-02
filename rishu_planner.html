@@ -917,7 +917,7 @@ function loadText(text, filename) {
     // ##CREDITS## セパレータで分割（\r\n / \n 両対応）
     var sepIdx = text.search(/\r?\n##CREDITS##/);
     var courseText = sepIdx >= 0 ? text.slice(0, sepIdx) : text;
-    var creditsStart = sepIdx >= 0 ? text.indexOf('\n', sepIdx) + 1 : -1;
+    var creditsStart = sepIdx >= 0 ? text.indexOf('\n', sepIdx + 1) + 1 : -1;
     var creditsText  = creditsStart > 0 ? text.slice(creditsStart) : '';
     DATA = parseCSV(courseText);
     importCompFromCSV(DATA);
