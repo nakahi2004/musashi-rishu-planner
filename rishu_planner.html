@@ -1506,7 +1506,7 @@ function showToast(msg) {
 function openSyllabus() {
   var name = document.getElementById('modal-name').textContent.trim();
   window.open('https://3s.musashi.ac.jp/uprx/up/pk/pky001/Pky00101.xhtml?guestlogin=Kmh006', '_blank');
-  if (navigator.clipboard && window.isSecureContext) {
+  if (navigator.clipboard && window.isSecureContext && location.protocol !== 'file:') {
     navigator.clipboard.writeText(name).then(function() {
       showToast('\u300c' + name + '\u300d\u3092\u30b3\u30d4\u30fc \u2714  \u4e0a\u306e\u691c\u7d22\u6b04\u306b\u8cbc\u308a\u4ed8\u3051\u3066\u304f\u3060\u3055\u3044');
     }).catch(function() {
